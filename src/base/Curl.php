@@ -202,11 +202,9 @@ class Curl
         if ($response === false) {
             $error = curl_errno($this->_curl);
             if ($error == 7) $this->code = 'timeout';
-            else {
-                $title = 'Curl request failed: ';
-                $message = $title . curl_error($this->_curl);
-                throw new \Exception($message, $error);
-            }
+            $title = 'Curl request failed: ';
+            $message = $title . curl_error($this->_curl);
+            throw new \Exception($message, $error);
         }
     }
 }

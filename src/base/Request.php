@@ -152,15 +152,14 @@ class Request extends Object
         );
         if ($this->hasProxy()) {
             $proxy = $this->getProxy();
-            $this->setOption(CURLOPT_PROXY, AH::getValue($proxy, 'server', null));
-            $this->setOption(CURLOPT_PROXYPORT, AH::getValue($proxy, 'port', null));
-            $this->setOption(CURLOPT_PROXYUSERPWD, AH::getValue($proxy, 'auth', null));
-            $this->setOption(CURLOPT_PROXYTYPE, 'HTTP');
-            $this->setOption(CURLOPT_PROXYUSERPWD, 1);
+            $curl->setOption(CURLOPT_PROXY, AH::getValue($proxy, 'server', null));
+            $curl->setOption(CURLOPT_PROXYPORT, AH::getValue($proxy, 'port', null));
+            $curl->setOption(CURLOPT_PROXYUSERPWD, AH::getValue($proxy, 'auth', null));
+            $curl->setOption(CURLOPT_PROXYTYPE, AH::getValue($proxy, 'type', CURLPROXY_HTTP));
         }
         if ($this->hasFile()) $curl->setOptions([
             CURLOPT_SAFE_UPLOAD => true,
-            CURLOPT_HTTPHEADER  => [
+            CURLOPT_HTTPHEADER => [
                 'Content-Type: multipart/form-data'
             ]
         ]);
